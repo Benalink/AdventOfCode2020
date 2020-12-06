@@ -5,7 +5,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Compile Include="Library.fs"/>
+        <Compile Include="Solvers\Day1.fs" />
+        <Compile Include="Solvers\Day2.fs" />
+        <Compile Include="Solvers\Day3.fs" />
+        <Compile Include="Solvers\Day4.fs" />
+        <Compile Include="Solvers\Day5.fs" />
+        <Compile Include="Solvers\Day6.fs" />
     </ItemGroup>
 
 </Project>
