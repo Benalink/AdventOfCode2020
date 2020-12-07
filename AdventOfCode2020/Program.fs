@@ -15,9 +15,9 @@ let runSolver solver input =
     | [|'5'; 'b'|] -> Day5.Part2 input |> string
     | [|'6'; 'a'|] -> Day6.Part1 input |> string
     | [|'6'; 'b'|] -> Day6.Part2 input |> string
+    | [|'7'; 'a'|] -> Day7.Part1 input |> string
+    | [|'7'; 'b'|] -> Day7.Part2 input |> string
     | _ -> failwith "Could not find a matching solver"
-
-
 
 [<EntryPoint>]
 let Main argv =
