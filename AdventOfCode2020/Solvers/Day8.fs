@@ -34,7 +34,6 @@ module Day8 =
             | ("jmp", i) -> ("nop", i)
             | _ -> failwith "Unsupported Instruction"
 
-
         stackTrace
         |> Seq.filter (fun i -> (fst (jumpTable.[i])) <> "acc")
         |> Seq.map (fun i ->
