@@ -5,7 +5,7 @@ module Day8 =
         let instParts = instruction.Split ' '
         (instParts.[0], int instParts.[1])
 
-    let runner (jumpTable: string[]) startPoint =
+    let runner (jumpTable: (string * int)[]) startPoint =
         let rec runInstruction instruction (visited: Set<int>) acc =
             if visited.Contains(instruction)
             then (visited |> Seq.rev, acc)
@@ -13,7 +13,7 @@ module Day8 =
             then (Seq.empty, acc)
             else
                 let newVisited = visited.Add(instruction)            
-                let (instName, instValue) = parseInstruction jumpTable.[instruction]
+                let (instName, instValue) = jumpTable.[instruction]
                 
                 match instName with
                 | "nop" -> runInstruction (instruction + 1) newVisited acc
@@ -23,30 +23,31 @@ module Day8 =
         runInstruction startPoint Set.empty 0
         
     let Part1 (input: string) =
-        let jumpTable = input.Split '\n'
+        let jumpTable = input.Split '\n' |> Array.map parseInstruction
         let (_, acc) = runner jumpTable 0
         acc
     
-    let private fixProgram (jumpTable: string[]) (stackTrace: seq<int>) =
-        let swapInstruction (instruction: string) =
-            let op =
-                match instruction.Substring(0, 3) with
-                | "nop" -> "jmp"
-                | "jmp" -> "nop"
-                | _ -> failwith "Unsupported Instruction"
-            op + instruction.Substring 3
+    let private fixProgram (jumpTable: (string * int)[]) (stackTrace: seq<int>) =
+        let swapInstruction (instruction: string * int) =
+            match instruction with
+            | ("nop", i) -> ("jmp", i)
+            | ("jmp", i) -> ("nop", i)
+            | _ -> failwith "Unsupported Instruction"
+
 
         stackTrace
-        |> Seq.filter (fun i -> jumpTable.[i].Contains("acc") |> not)
+        |> Seq.filter (fun i -> (fst (jumpTable.[i])) <> "acc")
         |> Seq.map (fun i ->
-            let testInstruction = swapInstruction jumpTable.[i]
-            let testTable = jumpTable |> Array.copy
-            testTable.[i] <- testInstruction
-            runner testTable 0)
+            let instruction = jumpTable.[i]
+            let testInstruction = swapInstruction instruction
+            jumpTable.[i] <- testInstruction
+            let r = runner jumpTable 0
+            jumpTable.[i] <- instruction
+            r)
         |> Seq.find (fun (st, _) -> Seq.isEmpty st)        
            
     let Part2 (input: string) =
-        let jumpTable = input.Split '\n'
+        let jumpTable = input.Split '\n' |> Array.map parseInstruction
         let (st, _) = runner jumpTable 0
         let (_, acc) = fixProgram jumpTable st
         acc
