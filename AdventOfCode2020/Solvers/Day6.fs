@@ -10,4 +10,4 @@ module Day6 =
     let Part2 (input: string) =
         parseGroups input
         |> Seq.map (fun g -> g.Split('\n') |> Seq.map Set.ofSeq)
-        |> Seq.sumBy(fun sets -> sets |> Seq.reduce Set.intersect |> Seq.length)
+        |> Seq.sumBy (fun sets -> sets |> Seq.reduce Set.intersect |> Seq.length)

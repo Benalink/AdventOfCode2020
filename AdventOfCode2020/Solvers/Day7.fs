@@ -1,5 +1,4 @@
 ﻿namespace AdventOfCode2020.Solvers
-
 module Day7 =
     type private Bag = { Colour: string; Contents: (string * int) list }
     
