@@ -37,7 +37,7 @@ module Day9 =
 
     let Part2 (input: string) =
         let parsedInput = input.Split '\n' |> Array.map int64 |> List.ofArray
-        let result = findSetWithSum parsedInput 400480901L 0
+        let result = findSetWithSum parsedInput (Part1 input) 0
         match result with
         | None -> failwith "Could not find a set that sums to target"
         | Some(x, y) ->
