@@ -21,6 +21,8 @@ let runSolver solver input =
     | [|'8'; 'b'|] -> Day8.Part2 input |> string
     | [|'9'; 'a'|] -> Day9.Part1 input |> string
     | [|'9'; 'b'|] -> Day9.Part2 input |> string
+    | [|'0'; 'a'|] -> Day10.Part1 input |> string
+    | [|'0'; 'b'|] -> Day10.Part2 input |> string
     | _ -> failwith "Could not find a matching solver"
 
 [<EntryPoint>]
