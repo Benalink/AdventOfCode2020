@@ -6,7 +6,7 @@ module Day12 =
         else abs m + mod'
 
     let private parseN (n: char list) =
-            n |> List.toArray |> System.String |> int       
+        n |> List.toArray |> System.String |> int       
 
     let Part1 (input: string) =
         let directions = ['N'; 'E'; 'S'; 'W']        
