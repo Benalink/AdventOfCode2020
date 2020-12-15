@@ -1,9 +1,9 @@
 ﻿namespace AdventOfCode2020.Solvers
 module Day11 =        
-    let cartesian xs ys = 
+    let private cartesian xs ys = 
         xs |> Seq.collect (fun x -> ys |> Seq.map (fun y -> x, y))
         
-    let addTuple a b =
+    let private addTuple a b =
         let (a1, a2) = a
         let (b1, b2) = b
         (a1 + b1, a2 + b2)
@@ -13,7 +13,7 @@ module Day11 =
         |> Seq.filter (fun v -> v <> (0, 0))
         |> Seq.toList
     
-    let applyRule seat neighbours tolerance =
+    let private applyRule seat neighbours tolerance =
         match seat with
         | '.' -> '.'
         | 'L' ->
